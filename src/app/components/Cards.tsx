@@ -25,12 +25,12 @@ const Cards = async () => {
   }
 
   return (
-    <section className="grid min-h-screen p-24 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+    <section className="grid min-h-screen p-8 lg:p-24 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
       {projects.map((project, i) => {
         return (
           <Card
             key={i}
-            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900"
+            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900 min-h-[75vh]"
             index={i}
           >
             <CardContent project={project} />
