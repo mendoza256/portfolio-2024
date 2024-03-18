@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useWindowSize } from "../hooks/useWindowSize";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 interface CardVideoProps {
   video: any;
@@ -9,8 +9,7 @@ interface CardVideoProps {
 }
 
 const CardVideo = ({ video, projectUrl }: CardVideoProps) => {
-  const { width } = useWindowSize();
-  const isMobile = width ? width < 768 : false;
+  const isMobile = useMediaQuery(768);
 
   return (
     <Link
@@ -22,7 +21,7 @@ const CardVideo = ({ video, projectUrl }: CardVideoProps) => {
         className="video filter md:grayscale md:hover:grayscale-0 transition duration-250"
         title={video.fields.title}
         loop
-        autoPlay={!isMobile}
+        autoPlay={isMobile}
         muted
         playsInline
         src={video.fields && "https:" + video.fields.file.url}
