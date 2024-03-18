@@ -37,7 +37,7 @@ export const Card = ({
                 duration: 4,
                 repeat: Infinity,
                 repeatType: "reverse",
-                delay: index ? index * 1 : 0,
+                delay: index ? index * 0.3 : 0,
               }
             : undefined
         }
@@ -59,7 +59,7 @@ export const Card = ({
                 duration: 4,
                 repeat: Infinity,
                 repeatType: "reverse",
-                delay: index ? index * 1 : 0,
+                delay: index ? index * 0.3 : 0,
               }
             : undefined
         }

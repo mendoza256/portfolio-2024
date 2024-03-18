@@ -4,9 +4,13 @@ export type ProjectType = {
   projectUrl?: string;
   agency?: string;
   agencyUrl?: string;
+  // FIXME
   previewImage?: any;
+  // FIXME
   gif?: any;
   id?: string;
+  // FIXME
+  video: any;
 };
 
 export type ProjectListType = {

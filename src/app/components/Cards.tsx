@@ -1,19 +1,16 @@
-import Link from "next/link";
+import { unstable_noStore } from "next/cache";
 import { getEntriesByContentType, getSingleEntry } from "../hooks/getData";
 import { ProjectListType, ProjectType } from "../utils/baseTypes";
 import { Card } from "./Card";
-import Image from "next/image";
+import CardContent from "./CardContent";
 
 const Cards = async () => {
+  unstable_noStore();
   const projects: ProjectType[] | undefined = [];
   const unsortedProjects = await getEntriesByContentType("project");
 
   const projectOrder = await getSingleEntry("73HGNSCj36fJdySraU9nGa");
   const order = projectOrder.fields.order;
-
-  const aboutEntry = getSingleEntry("B4PeBydliOcPS7hYguoB0").then(
-    (res) => res.fields
-  );
 
   if (order) {
     order.forEach((project: ProjectListType) => {
@@ -26,58 +23,20 @@ const Cards = async () => {
       }
     });
   }
+
   return (
-    <section className="grid min-h-screen p-24 grid-cols-3 gap-8">
+    <section className="grid min-h-screen p-24 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
       {projects.map((project, i) => {
-        const { projectUrl, gif, previewImage } = project;
         return (
           <Card
             key={i}
             className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900"
             index={i}
           >
-            {gif && previewImage && (
-              <Link
-                className="link image-wrapper relative aspect-w-16 aspect-h-9"
-                target="_blank"
-                href={projectUrl ? projectUrl : ""}
-              >
-                <Image
-                  className="gif-image absolute invisible hover:visible"
-                  src={"https:" + gif.fields.file.url}
-                  alt={"gif image"}
-                  width={768}
-                  height={432}
-                />
-                <Image
-                  className="preview-image"
-                  src={"https:" + previewImage.fields.file.url}
-                  alt={"preview image"}
-                  width={768}
-                  height={432}
-                />
-                <div className="svg-container">{/* <LinkOutline /> */}</div>
-              </Link>
-            )}
-            <div className="card-content mt-auto">
-              <h2 className="text-lg uppercase font-bold pb-2">
-                {project.title}
-              </h2>
-              <p className="pb-4">{project.description}</p>
-              <a className="cursor-pointer hover:underline" href={projectUrl}>
-                View Project
-              </a>
-            </div>
+            <CardContent project={project} />
           </Card>
         );
       })}
-      {aboutEntry && (
-        <Card className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900 cursor-pointer">
-          <h2>{aboutEntry.title}</h2>
-          <p>{aboutEntry.description}</p>
-          <a href={aboutEntry.projectUrl}>View Project</a>
-        </Card>
-      )}
     </section>
   );
 };
