@@ -33,7 +33,7 @@ const Cards = async () => {
         return (
           <Card
             key={i}
-            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900 cursor-pointer"
+            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900"
             index={i}
           >
             {gif && previewImage && (
@@ -59,9 +59,15 @@ const Cards = async () => {
                 <div className="svg-container">{/* <LinkOutline /> */}</div>
               </Link>
             )}
-            <h2>{project.title}</h2>
-            <p>{project.description}</p>
-            <a href={projectUrl}>View Project</a>
+            <div className="card-content mt-auto">
+              <h2 className="text-lg uppercase font-bold pb-2">
+                {project.title}
+              </h2>
+              <p className="pb-4">{project.description}</p>
+              <a className="cursor-pointer hover:underline" href={projectUrl}>
+                View Project
+              </a>
+            </div>
           </Card>
         );
       })}
