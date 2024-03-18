@@ -1,8 +1,13 @@
+import { unstable_cache } from "next/cache";
+
 const baseUrl = "https://cdn.contentful.com";
 
 // fetch data from contentful rest api
 export const getData = async (url: string) => {
   const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
   const data = await response.json();
   return data;
 };
@@ -28,14 +33,25 @@ export const getEntriesByContentType = async (contentTypeId: string) => {
   if (data.items) {
     const projects = await Promise.all(
       data.items.map(async (item: any) => {
+        const video = item.fields.siteBrowseVideo
+          ? await getImage(item.fields.siteBrowseVideo?.sys.id)
+          : null;
+        const gif = item.fields.gif
+          ? await getImage(item.fields.gif?.sys.id)
+          : null;
+        const previewImage = item.fields.previewImage
+          ? await getImage(item.fields.previewImage?.sys.id)
+          : null;
+
         return {
           title: item.fields.title,
           description: item.fields.description,
           agency: item.fields.agency ?? "",
           agencyUrl: item.fields.agencyUrl ?? "",
           projectUrl: item.fields.projectUrl,
-          previewImage: await getImage(item.fields.previewImage.sys.id),
-          gif: await getImage(item.fields.gif.sys.id),
+          previewImage: previewImage,
+          gif: gif,
+          video: video,
           id: item.sys.id,
         };
       })
