@@ -3,13 +3,13 @@ import { useState, useCallback, useEffect } from "react";
 export const useMediaQuery = (width: number) => {
   const [targetReached, setTargetReached] = useState(false);
 
-  const updateTarget = useCallback((e) => {
+const updateTarget = useCallback((e: MediaQueryListEvent) => {
     if (e.matches) {
-      setTargetReached(true);
+        setTargetReached(true);
     } else {
-      setTargetReached(false);
+        setTargetReached(false);
     }
-  }, []);
+}, []);
 
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${width}px)`);
