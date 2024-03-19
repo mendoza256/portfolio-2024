@@ -30,7 +30,7 @@ const Cards = async () => {
         return (
           <Card
             key={i}
-            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900 min-h-[75vh]"
+            className="rounded-[22px] w-full h-full p-4 sm:p-10 bg-white dark:bg-zinc-900 min-h-[75vh] lg:min-h-0"
             index={i}
           >
             <CardContent project={project} />
